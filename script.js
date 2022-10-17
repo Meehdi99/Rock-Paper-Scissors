@@ -5,26 +5,23 @@ let w=0;
 
 
 function getComputerChoice (){
-    return computerSelection[Math.floor(Math.random()*3)];
+    return computerSelection[Math.floor(Math.random()*computerSelection.length)];
 }
 
 
 function playRound(playerSelection,computerSelection){
     computerSelection = getComputerChoice();
     alert("Computer chose : "+ computerSelection);
-
     if (playerSelection == computerSelection){
         alert("Tied!");
     }
-
-    else if (playerSelection=='rock' && computerSelection=='paper' || playerSelection =='paper' && computerSelection =='scissors' || playerSelection =='scissors' && computerSelection =='rock'){
-        l++;
-        alert("You lose!");
-    }
-
-    else{
+    else if (playerSelection=='rock' && computerSelection=='scissors' || playerSelection =='paper' && computerSelection =='rock' || playerSelection =='scissors' && computerSelection =='paper'){
         w++;
-        alert("You win!");
+        alert("You win! "+playerSelection+" beats "+computerSelection+".");
+    }
+    else{
+        l++;
+        alert("You lose!"+computerSelection+" beats "+playerSelection+".");
     }
 }
 
