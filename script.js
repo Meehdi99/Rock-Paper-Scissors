@@ -1,8 +1,8 @@
 let computerSelection = ["rock", "paper", "scissors"];
 let playerSelection;
-let l = 0;
-let w = 0;
-let i = 1;
+let l = 0,
+  w = 0,
+  i = 1;
 
 function getComputerChoice() {
   return Math.floor(Math.random() * computerSelection.length);
@@ -51,7 +51,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-  for (i = 1; i < 6; i++) {
+  for (i = 0; i < 6; i++) {
     let c = computerSelection[getComputerChoice()];
     playerSelection = prompt("Choose between: Paper, Rock or Scissors", "Rock");
     console.log("Computer chose : " + c);
