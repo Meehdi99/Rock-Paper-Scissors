@@ -1,4 +1,4 @@
-let computerSelection = ["rock", "paper", "scissors"];
+let computerSelection = ["Rock", "Paper", "Scissors"];
 let playerSelection;
 let l = 0,
   w = 0,
@@ -10,59 +10,64 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
-    return "Round : " + i + "/5" + "\nTie!" + "\n Score : " + l + " - " + w;
+    return "\n It's a tie!" + "\n Score : Computer : " + l + " - Player : " + w;
   } else if (
-    (playerSelection == "rock" && computerSelection == "scissors") ||
-    (playerSelection == "paper" && computerSelection == "rock") ||
-    (playerSelection == "scissors" && computerSelection == "paper")
+    (playerSelection == "Rock" && computerSelection == "Scissors") ||
+    (playerSelection == "Paper" && computerSelection == "Rock") ||
+    (playerSelection == "Scissors" && computerSelection == "Paper")
   ) {
     w++;
     return (
-      "Round : " +
-      i +
-      "/5" +
-      "\nYou win! " +
+      "\n You win! " +
       playerSelection +
       " beats " +
       computerSelection +
       "." +
-      "\n Score : " +
+      "\n Score : Computer : " +
       l +
-      " - " +
+      " - Player : " +
       w
     );
   } else {
     l++;
     return (
-      "Round : " +
-      i +
-      "/5" +
-      "\nYou lose! " +
+      "\n You lose! " +
       computerSelection +
       " beats " +
       playerSelection +
       "." +
-      "\n Score : " +
+      "\n Score : Computer : " +
       l +
-      " - " +
+      " - Player : " +
       w
     );
   }
 }
+const body = document.querySelector("body");
+const results = document.createElement("div");
+results.classList.add("results");
 
-function game() {
-  for (i = 0; i < 6; i++) {
-    let c = computerSelection[getComputerChoice()];
-    playerSelection = prompt("Choose between: Paper, Rock or Scissors", "Rock");
-    console.log("Computer chose : " + c);
-    console.log(playRound(playerSelection.toLowerCase(), c));
-  }
-  if (l > w) {
-    console.log("Computer Wins!");
-  } else if (w > l) {
-    console.log("You Win!");
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    game(button.id);
+  });
+});
+
+function game(playerSelection) {
+  let c = computerSelection[getComputerChoice()];
+  if (w == 5) {
+    results.textContent = "You win!";
+    body.appendChild(results);
+    l = w = 0;
+  } else if (l == 5) {
+    results.textContent = "Computer wins!";
+    body.appendChild(results);
+    l = w = 0;
   } else {
-    console.log("it's a tie!");
+    results.textContent =
+      "Computer chose : " + c + playRound(playerSelection, c);
+    body.appendChild(results);
   }
-  l = w = 0;
 }
