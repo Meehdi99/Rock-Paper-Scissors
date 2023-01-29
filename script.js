@@ -1,68 +1,92 @@
-let computerSelection = ["rock", "paper", "scissors"];
+let computerSelection = ["Rock", "Paper", "Scissors"];
 let playerSelection;
 let l = 0,
-  w = 0,
-  i = 1;
+  w = 0;
 
 function getComputerChoice() {
   return Math.floor(Math.random() * computerSelection.length);
 }
 
-function playRound(playerSelection, computerSelection) {
+function game(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
-    return "Round : " + i + "/5" + "\nTie!" + "\n Score : " + l + " - " + w;
+    return (
+      "<br>It's a tie! You both chose " +
+      playerSelection +
+      "<br>Computer : " +
+      l +
+      " - " +
+      w +
+      " : Player"
+    );
   } else if (
-    (playerSelection == "rock" && computerSelection == "scissors") ||
-    (playerSelection == "paper" && computerSelection == "rock") ||
-    (playerSelection == "scissors" && computerSelection == "paper")
+    (playerSelection == "Rock" && computerSelection == "Scissors") ||
+    (playerSelection == "Paper" && computerSelection == "Rock") ||
+    (playerSelection == "Scissors" && computerSelection == "Paper")
   ) {
     w++;
     return (
-      "Round : " +
-      i +
-      "/5" +
-      "\nYou win! " +
+      "<br>Computer chose " +
+      computerSelection +
+      "<br>You win! " +
       playerSelection +
       " beats " +
       computerSelection +
       "." +
-      "\n Score : " +
+      "<br>Computer : " +
       l +
       " - " +
-      w
+      w +
+      " : Player"
     );
   } else {
     l++;
     return (
-      "Round : " +
-      i +
-      "/5" +
-      "\nYou lose! " +
+      "<br>Computer chose " +
+      computerSelection +
+      "<br>You lose! " +
       computerSelection +
       " beats " +
       playerSelection +
       "." +
-      "\n Score : " +
+      "<br>Computer : " +
       l +
       " - " +
-      w
+      w +
+      " : Player"
     );
   }
 }
 
-function game() {
-  for (i = 0; i < 6; i++) {
+const buttons = document.querySelectorAll("button");
+const result = document.querySelector(".results");
+
+function reload() {
+  const refresh = document.createElement("button");
+  refresh.innerHTML = "Play Again";
+  result.appendChild(refresh);
+  refresh.onclick = () => window.location.reload();
+}
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
     let c = computerSelection[getComputerChoice()];
-    playerSelection = prompt("Choose between: Paper, Rock or Scissors", "Rock");
-    console.log("Computer chose : " + c);
-    console.log(playRound(playerSelection.toLowerCase(), c));
-  }
-  if (l > w) {
-    console.log("Computer Wins!");
-  } else if (w > l) {
-    console.log("You Win!");
-  } else {
-    console.log("it's a tie!");
-  }
-  l = w = 0;
+    result.innerHTML = game(button.id, c);
+    if (w == 5) {
+      l = w = 0;
+      disableButtons();
+      result.innerHTML += "<br>You win!<br><br>";
+      reload();
+    } else if (l == 5) {
+      l = w = 0;
+      disableButtons();
+      result.innerHTML += "<br>Computer wins!<br><br>";
+      reload();
+    }
+  });
+});
+
+function disableButtons() {
+  buttons.forEach((btn) => {
+    btn.disabled = true;
+  });
 }
