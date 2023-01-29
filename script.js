@@ -25,9 +25,9 @@ function game(playerSelection, computerSelection) {
   ) {
     w++;
     return (
-      "Computer chose " +
+      "<br>Computer chose " +
       computerSelection +
-      "<br> You win! " +
+      "<br>You win! " +
       playerSelection +
       " beats " +
       computerSelection +
@@ -41,9 +41,9 @@ function game(playerSelection, computerSelection) {
   } else {
     l++;
     return (
-      "Computer chose " +
+      "<br>Computer chose " +
       computerSelection +
-      "<br> You lose! " +
+      "<br>You lose! " +
       computerSelection +
       " beats " +
       playerSelection +
@@ -74,12 +74,12 @@ buttons.forEach((button) => {
     if (w == 5) {
       l = w = 0;
       disableButtons();
-      result.innerHTML += "<br>You win!<br>";
+      result.innerHTML += "<br>You win!<br><br>";
       reload();
     } else if (l == 5) {
       l = w = 0;
       disableButtons();
-      result.innerHTML += "<br>Computer wins!<br>";
+      result.innerHTML += "<br>Computer wins!<br><br>";
       reload();
     }
   });
